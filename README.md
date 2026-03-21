@@ -10,6 +10,18 @@ CryptaDex is a full-stack, end-to-end security intelligence platform that detect
 
 ---
 
+## MVP
+<img width="1920" height="919" alt="image" src="https://github.com/user-attachments/assets/79d81c28-96eb-4afc-9b14-2b08da3f3011" />
+
+<img width="1919" height="917" alt="image" src="https://github.com/user-attachments/assets/9c13007d-b140-4828-af11-fb3d1b0f9c17" />
+
+<img width="1920" height="916" alt="image" src="https://github.com/user-attachments/assets/7080f67a-de0f-40b0-89a2-cdab25fa79c0" />
+
+<img width="1920" height="920" alt="image" src="https://github.com/user-attachments/assets/53581396-778b-4635-b18f-77f32d79e818" />
+
+<img width="1920" height="919" alt="image" src="https://github.com/user-attachments/assets/36732317-17b1-4407-a3ac-15cac2e81b51" />
+
+
 ## 📚 Table of Contents
 
 - [Overview](#-overview)
