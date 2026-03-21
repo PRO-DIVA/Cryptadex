@@ -1,6 +1,7 @@
 # 🛡️ CryptaDex — AI-Powered Insider Threat Detection System
 
 **Writeup of the project:** [CryptaDex Writeup](https://docs.google.com/document/d/1NyLFu0rqze3I4Y8iQTYbbqaNgWkAzMqHS8Zf7aNfXvY/edit?usp=sharing)
+**Video Link of the project:** [CryptaDex Demo Video](https://drive.google.com/file/d/1hfKpLMl18uy9_AbgWmka3sCkTwaMqppz/view?usp=sharing)
 
 > **PS3 Submission** | AI-Powered Insider Threat Detection Challenge
 
