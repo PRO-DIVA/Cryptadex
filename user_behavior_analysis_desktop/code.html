@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CryptaDex | User Behavior Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#e1e3e4",
+              "on-surface": "#191c1d",
+              "surface-container": "#edeeef",
+              "surface": "#f8f9fa",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "secondary-container": "#dfdfe9",
+              "on-tertiary-fixed": "#410007",
+              "primary-fixed-dim": "#98cdf2",
+              "on-secondary-fixed": "#191b22",
+              "inverse-primary": "#98cdf2",
+              "tertiary-container": "#dc3240",
+              "on-secondary-fixed-variant": "#45464e",
+              "on-tertiary-container": "#fffdff",
+              "on-background": "#191c1d",
+              "inverse-surface": "#2e3132",
+              "tertiary": "#b9122b",
+              "surface-container-high": "#e7e8e9",
+              "surface-variant": "#e1e3e4",
+              "surface-bright": "#f8f9fa",
+              "background": "#f8f9fa",
+              "inverse-on-surface": "#f0f1f2",
+              "outline": "#71787e",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "surface-tint": "#2b6485",
+              "surface-dim": "#d9dadb",
+              "on-surface-variant": "#41484d",
+              "on-primary-container": "#fffdff",
+              "tertiary-fixed": "#ffdad8",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#c5c6cf",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary-fixed-variant": "#92001c",
+              "secondary-fixed": "#e2e2ec",
+              "primary-fixed": "#c7e7ff",
+              "on-error": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3b1",
+              "secondary": "#5c5e66",
+              "primary": "#296283",
+              "on-primary-fixed-variant": "#064c6b",
+              "primary-fixed": "#001e2e"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sentinel-shadow {
+            box-shadow: 0 12px 32px -4px rgba(25, 28, 29, 0.06);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .risk-gradient {
+            background: linear-gradient(to right, #b9122b, #dc3240);
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen overflow-hidden">
+<!-- Sidebar: SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-[#1A1C23] flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-2xl font-black text-white tracking-tighter">CryptaDex</h1>
+<p class="text-xs text-slate-400 font-medium">SOC Sentinel</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="security">security</span>
+<span class="font-['Inter'] text-sm font-medium">Security Monitoring</span>
+</a>
+<a class="flex items-center px-6 py-3 bg-[#296283] text-white rounded-lg mx-2 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="radar">radar</span>
+<span class="font-['Inter'] text-sm font-medium">Detection Module</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="hub">hub</span>
+<span class="font-['Inter'] text-sm font-medium">Monitored Sources</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-white transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-sm font-medium">System Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-primary text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:bg-opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Scan
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 flex flex-col h-screen overflow-y-auto bg-surface">
+<!-- Top Header: TopNavBar -->
+<header class="flex justify-between items-center px-8 h-16 w-full sticky top-0 bg-[#F8F9FA] z-40">
+<div class="flex items-center gap-8">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Search User ID (e.g. UID-9402)..." type="text"/>
+</div>
+<div class="hidden md:flex gap-6">
+<a class="text-slate-500 font-['Inter'] font-semibold tracking-tight text-sm" href="#">Health</a>
+<a class="text-[#296283] border-b-2 border-[#296283] pb-1 font-['Inter'] font-semibold tracking-tight text-sm" href="#">AI Insights</a>
+<a class="text-slate-500 font-['Inter'] font-semibold tracking-tight text-sm" href="#">Network</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden ml-2 border border-outline-variant/20">
+<img alt="User profile" data-alt="Small round user avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkU15RhIoJs6JUXpjpKkqr_hBs3wFmQTb9eeO4Pg6QuYep_3fKurfG6wo2LpMV4UZ8KpPjOfsZcaKgIFK2x1dxRlMbFyIQHOpwtcY6Rom17XNg90WwWwOSune7DvPh7ZrPQMxP1Xe0sYcOy_a-9fBkSd-np_WV6OT2W2xY3PRCU84yAHg7We7wqHh9OdXCOX95ZM-Wr9nOiwPQiAi-zsFxIsbU2xF3d4eKKs7_dE3Kc1n0AFFUDK4rfM3Ex74rTMef3IuFN6SsHc4"/>
+</div>
+</div>
+</header>
+<!-- User Profile Summary Section -->
+<section class="px-8 py-6 space-y-8">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-on-surface-variant text-xs font-bold uppercase tracking-widest">Investigation View</span>
+<h2 class="text-3xl font-extrabold text-on-surface mt-1">UID-9402: Marcus Vane</h2>
+<p class="text-on-surface-variant text-sm mt-1">Senior DevSecOps | Cloud Architecture Cluster</p>
+</div>
+<div class="flex gap-3">
+<div class="bg-error-container px-4 py-2 rounded-xl flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error animate-pulse"></div>
+<span class="text-on-error-container font-bold text-sm">CRITICAL RISK</span>
+</div>
+<div class="bg-surface-container-lowest sentinel-shadow px-4 py-2 rounded-xl border border-outline-variant/10">
+<span class="text-on-surface-variant text-xs block">Current Risk Score</span>
+<span class="text-2xl font-black text-primary">84/100</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid: Analytics & Timeline -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Individual Risk Score Trajectory -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest sentinel-shadow rounded-xl p-6 relative overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold text-on-surface">Risk Trajectory (7 Days)</h3>
+<div class="flex gap-2">
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="w-3 h-0.5 bg-primary"></span> Baseline
+                            </span>
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="w-3 h-0.5 bg-tertiary"></span> Observed
+                            </span>
+</div>
+</div>
+<!-- Mock Line Chart Area -->
+<div class="h-48 w-full flex items-end justify-between px-2 relative">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-outline-variant/10 w-full h-px"></div>
+<div class="border-b border-outline-variant/10 w-full h-px"></div>
+<div class="border-b border-outline-variant/10 w-full h-px"></div>
+<div class="border-b border-outline-variant/10 w-full h-px"></div>
+</div>
+<svg class="absolute bottom-0 left-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 800 200">
+<path d="M0 160 Q 100 155, 200 140 T 400 120 T 600 40 T 800 20" fill="none" opacity="0.3" stroke="#296283" stroke-dasharray="4" stroke-width="2"></path>
+<path d="M0 180 L 100 170 L 200 175 L 300 150 L 400 160 L 500 100 L 600 80 L 700 30 L 800 10" fill="none" stroke="#b9122b" stroke-width="3"></path>
+<circle cx="700" cy="30" fill="#b9122b" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<!-- Anomalous Summary Stats -->
+<div class="col-span-12 lg:col-span-4 grid grid-rows-2 gap-4">
+<div class="bg-primary text-white p-6 rounded-xl flex flex-col justify-between">
+<span class="text-xs font-bold opacity-80 uppercase">Data Egress Volume</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black">4.2</span>
+<span class="text-lg font-bold">GB/hr</span>
+</div>
+<span class="text-xs text-primary-fixed-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+                            340% above user baseline
+                        </span>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl flex flex-col justify-between">
+<span class="text-xs font-bold text-on-surface-variant uppercase">Auth Failures</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-on-surface">14</span>
+<span class="text-sm font-medium text-on-surface-variant">Global Nodes</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-400 border-2 border-surface-container-high"></div>
+<div class="w-6 h-6 rounded-full bg-slate-500 border-2 border-surface-container-high"></div>
+<div class="w-6 h-6 rounded-full bg-slate-600 border-2 border-surface-container-high"></div>
+</div>
+</div>
+</div>
+<!-- 24h Timeline / Gantt Chart of Anomalous Activity -->
+<div class="col-span-12 bg-surface-container-lowest sentinel-shadow rounded-xl p-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface">24h Activity Sentinel</h3>
+<p class="text-on-surface-variant text-sm">Visual mapping of multi-vector threat patterns</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 text-xs font-semibold">
+<div class="w-3 h-3 bg-tertiary rounded-sm"></div> Network
+                            </div>
+<div class="flex items-center gap-2 text-xs font-semibold">
+<div class="w-3 h-3 bg-primary rounded-sm"></div> Auth
+                            </div>
+<div class="flex items-center gap-2 text-xs font-semibold">
+<div class="w-3 h-3 bg-secondary rounded-sm"></div> Admin
+                            </div>
+</div>
+</div>
+<!-- Gantt Layout -->
+<div class="space-y-6">
+<!-- Time Header -->
+<div class="grid grid-cols-12 gap-0 border-b border-outline-variant/10 pb-2 text-[10px] font-black text-on-surface-variant/40">
+<span>00:00</span><span>02:00</span><span>04:00</span><span>06:00</span><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00</span><span>20:00</span><span>22:00</span>
+</div>
+<!-- Row 1: Unauthorized Access -->
+<div class="flex items-center">
+<div class="w-48 shrink-0 text-sm font-bold text-on-surface pr-4">Unauthorized Auth</div>
+<div class="flex-1 h-8 bg-surface-container-low rounded-full relative overflow-hidden">
+<div class="absolute left-[15%] w-[5%] h-full bg-primary/40"></div>
+<div class="absolute left-[65%] w-[8%] h-full bg-primary"></div>
+<div class="absolute left-[75%] w-[2%] h-full bg-primary"></div>
+</div>
+</div>
+<!-- Row 2: Database Queries -->
+<div class="flex items-center">
+<div class="w-48 shrink-0 text-sm font-bold text-on-surface pr-4">Shadow Queries</div>
+<div class="flex-1 h-8 bg-surface-container-low rounded-full relative overflow-hidden">
+<div class="absolute left-[70%] w-[12%] h-full bg-secondary"></div>
+<div class="absolute left-[85%] w-[10%] h-full bg-secondary/60"></div>
+</div>
+</div>
+<!-- Row 3: API Egress -->
+<div class="flex items-center">
+<div class="w-48 shrink-0 text-sm font-bold text-on-surface pr-4">High-Vol Egress</div>
+<div class="flex-1 h-8 bg-surface-container-low rounded-full relative overflow-hidden">
+<div class="absolute right-[5%] w-[25%] h-full risk-gradient"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Log Feed -->
+<div class="col-span-12 bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/5">
+<div class="bg-surface-container-high px-8 py-4 flex justify-between items-center">
+<span class="font-bold text-sm text-on-surface">System Log Stream (UID-9402)</span>
+<div class="flex gap-4">
+<button class="text-xs font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="filter_list">filter_list</span> Filter
+                            </button>
+<button class="text-xs font-bold text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="download">download</span> Export
+                            </button>
+</div>
+</div>
+<div class="divide-y divide-outline-variant/10">
+<!-- Log Item 1 -->
+<div class="px-8 py-4 grid grid-cols-12 gap-4 hover:bg-white transition-colors">
+<div class="col-span-2 text-xs font-mono text-on-surface-variant">14:22:10:043</div>
+<div class="col-span-2">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase">Critical</span>
+</div>
+<div class="col-span-6 text-sm font-medium">Bulk data exfiltration detected on endpoint SVR-PROD-09. JSON payload size exceeded 2.4GB limit.</div>
+<div class="col-span-2 text-right">
+<button class="text-primary hover:underline text-xs font-bold">Trace Hub</button>
+</div>
+</div>
+<!-- Log Item 2 -->
+<div class="px-8 py-4 grid grid-cols-12 gap-4 hover:bg-white transition-colors">
+<div class="col-span-2 text-xs font-mono text-on-surface-variant">14:18:55:012</div>
+<div class="col-span-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-black uppercase">Warning</span>
+</div>
+<div class="col-span-6 text-sm font-medium">Multiple failed SSH attempts via atypical GEO-IP: Moscow, RU (Node Cluster Alpha).</div>
+<div class="col-span-2 text-right">
+<button class="text-primary hover:underline text-xs font-bold">Trace Hub</button>
+</div>
+</div>
+<!-- Log Item 3 -->
+<div class="px-8 py-4 grid grid-cols-12 gap-4 hover:bg-white transition-colors">
+<div class="col-span-2 text-xs font-mono text-on-surface-variant">13:55:20:998</div>
+<div class="col-span-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase">Info</span>
+</div>
+<div class="col-span-6 text-sm font-medium">Standard privileged login escalation requested for 'Root Access' on Dev Cluster B. Approved by automated policy.</div>
+<div class="col-span-2 text-right">
+<button class="text-primary hover:underline text-xs font-bold">Trace Hub</button>
+</div>
+</div>
+<!-- Log Item 4 -->
+<div class="px-8 py-4 grid grid-cols-12 gap-4 hover:bg-white transition-colors">
+<div class="col-span-2 text-xs font-mono text-on-surface-variant">12:10:04:221</div>
+<div class="col-span-2">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase">Critical</span>
+</div>
+<div class="col-span-6 text-sm font-medium">Encrypted tunnel detected. Peer 182.xx.xx.xx. Protocol obfuscation active. Possible beaconing activity.</div>
+<div class="col-span-2 text-right">
+<button class="text-primary hover:underline text-xs font-bold">Trace Hub</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer / Action Area -->
+<footer class="mt-auto px-8 py-10 bg-surface-container-low flex justify-between items-center border-t border-outline-variant/10">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Incident ID</span>
+<span class="text-sm font-mono font-bold">INC-2023-904-B</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-on-surface-variant uppercase tracking-widest">Owner</span>
+<span class="text-sm font-bold">Security_Lead_A1</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-xl text-on-surface-variant font-bold text-sm hover:bg-surface-container-high transition-colors">Dismiss False Alarm</button>
+<button class="px-8 py-2.5 rounded-xl bg-tertiary text-white font-bold text-sm hover:opacity-90 transition-all sentinel-shadow">Isolate User Identity</button>
+</div>
+</footer>
+</main>
+</body></html>

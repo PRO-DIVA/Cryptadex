@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CryptaDex SOC Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#e1e3e4",
+              "on-surface": "#191c1d",
+              "surface-container": "#edeeef",
+              "surface": "#f8f9fa",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "secondary-container": "#dfdfe9",
+              "on-tertiary-fixed": "#410007",
+              "primary-fixed-dim": "#98cdf2",
+              "on-secondary-fixed": "#191b22",
+              "inverse-primary": "#98cdf2",
+              "tertiary-container": "#dc3240",
+              "on-secondary-fixed-variant": "#45464e",
+              "on-tertiary-container": "#fffdff",
+              "on-background": "#191c1d",
+              "inverse-surface": "#2e3132",
+              "tertiary": "#b9122b",
+              "surface-container-high": "#e7e8e9",
+              "surface-variant": "#e1e3e4",
+              "surface-bright": "#f8f9fa",
+              "background": "#f8f9fa",
+              "inverse-on-surface": "#f0f1f2",
+              "outline": "#71787e",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "surface-tint": "#2b6485",
+              "surface-dim": "#d9dadb",
+              "on-surface-variant": "#41484d",
+              "on-primary-container": "#fffdff",
+              "tertiary-fixed": "#ffdad8",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#c5c6cf",
+              "surface-container-low": "#f3f4f5",
+              "on-tertiary-fixed-variant": "#92001c",
+              "secondary-fixed": "#e2e2ec",
+              "primary-fixed": "#c7e7ff",
+              "on-error": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3b1",
+              "secondary": "#5c5e66",
+              "primary": "#296283",
+              "on-primary-fixed-variant": "#064c6b",
+              "primary-container": "#457b9d",
+              "on-secondary-container": "#61626b",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c1c7ce",
+              "on-primary-fixed": "#001e2e"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sentinel-shadow {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c7ce;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-[#1A1C23] flex flex-col py-6 z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="text-2xl font-black text-white leading-none">CryptaDex</h1>
+<p class="text-[10px] text-slate-500 tracking-widest uppercase mt-1">SOC Sentinel</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="bg-[#296283] text-white rounded-xl mx-2 flex items-center gap-4 px-4 py-3 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-['Inter'] text-sm font-medium">Security Monitoring</span>
+</a>
+<a class="text-slate-400 hover:text-white mx-2 flex items-center gap-4 px-4 py-3 hover:bg-[#2c2f3a] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="radar">radar</span>
+<span class="font-['Inter'] text-sm font-medium">Detection Module</span>
+</a>
+<a class="text-slate-400 hover:text-white mx-2 flex items-center gap-4 px-4 py-3 hover:bg-[#2c2f3a] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-['Inter'] text-sm font-medium">Monitored Sources</span>
+</a>
+<a class="text-slate-400 hover:text-white mx-2 flex items-center gap-4 px-4 py-3 hover:bg-[#2c2f3a] transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-sm font-medium">System Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#1a4a66] transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Scan
+        </button>
+<div class="mt-8 flex items-center gap-3 border-t border-slate-800 pt-6">
+<img alt="CryptaDex Sentinel User Avatar" class="w-10 h-10 rounded-full border-2 border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf43eR1Jtv3EyWPVS4Qu5BoR7hKQSSHPoGlUvLJj6zYlVfNzJSw0ynbl5iKp1QLpzawHRdWygV1Le_Aqbcy78Sh8D7ug70I-zdtgdZidEgwI1A28W9gnJfapHNqRVOoANLxdJY0pAFzFfVLTotkalk-DJ6UeiX-znxteLGlaqJoWs_Ztk4zBTKV14OSl3_9ImpFjqF0UpK88zWHLZOKeejPqGD9WLBeBcnex7PR1SbRXlIWLBdIZ5d9cMGL_gk-gFCJC9z0n6lYS0"/>
+<div class="overflow-hidden">
+<p class="text-white text-sm font-bold truncate">Sentinel_01</p>
+<p class="text-slate-500 text-xs truncate">Level 4 Clearance</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar (Authority Source: IMAGE_20) -->
+<header class="flex flex-col w-full bg-surface sticky top-0 z-40 border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-6 h-14 w-full">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/50 text-sm">
+<span class="material-symbols-outlined text-sm text-outline">description</span>
+<span class="font-medium">runZero Lab</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/50 text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-outline">calendar_today</span>
+<span>02/10/2025 - 03/12/2025</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/50 text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-outline">location_on</span>
+<span>All sites</span>
+<span class="material-symbols-outlined text-sm text-outline">expand_more</span>
+</div>
+<button class="flex items-center gap-2 bg-[#457b9d] text-white px-4 py-1.5 rounded-lg text-xs font-bold shadow-sm">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+                    Widgets
+                </button>
+<button class="text-outline hover:text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+<div class="px-6 py-2 border-t border-outline-variant/20">
+<div class="flex items-center gap-2 text-xs font-medium">
+<div class="bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">bar_chart</span>
+<span>Insider Threat Analysis</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area (Dashboard) -->
+<div class="p-6 space-y-6 max-w-[1600px] w-full mx-auto">
+<!-- Top Row: Alerts and Trends -->
+<div class="grid grid-cols-12 gap-6">
+<!-- High-Priority Alerts -->
+<div class="col-span-12 lg:col-span-5 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-bold text-sm text-on-surface">High-Priority Alerts</h3>
+<p class="text-xs text-on-surface-variant"><span class="text-error font-bold">3 Critical</span>, <span class="text-tertiary font-bold">5 High Risk Alerts</span> (Last 24 hrs)</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="flex gap-4 mt-4 items-start flex-1">
+<div class="flex-1 bg-error-container/20 border border-error/20 rounded-lg p-4 flex gap-4">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="text-[11px] space-y-1">
+<p class="font-bold text-on-surface">Alert: Anomalous Email Activity</p>
+<p class="text-on-surface-variant"><span class="font-bold">User:</span> UID_5578_8 (anonymized)</p>
+<p class="text-on-surface-variant"><span class="font-bold">Indicator:</span> 5x higher email volume to unusual domain.</p>
+<p class="text-on-surface-variant"><span class="font-bold">Actionable insight:</span> Investigate potential data exfiltration.</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center p-4 border border-outline-variant/20 rounded-lg shrink-0">
+<span class="text-2xl font-black text-primary">+10%</span>
+<span class="text-[10px] text-on-surface-variant font-medium">from prev. period</span>
+</div>
+</div>
+</div>
+<!-- Alert Trends -->
+<div class="col-span-12 lg:col-span-7 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Alert Trends (Last 30 Days)</h3>
+<p class="text-xs text-on-surface-variant">Behavioral trends</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="h-32 w-full mt-4 flex items-end">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 100">
+<path d="M0,80 L50,85 L100,75 L150,70 L200,65 L250,55 L300,50 L350,45 L400,43 L450,44 L500,48 L550,50 L600,48 L650,47 L700,50 L750,55 L800,58 L850,55 L900,45 L950,40 L1000,30 L1000,100 L0,100 Z" fill="#2962831a" stroke="#296283" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant font-bold mt-2 uppercase tracking-tighter px-1">
+<span>0</span>
+<span>10k</span>
+</div>
+</div>
+</div>
+<!-- Summary Metrics Row -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Threat Indicators Overview -->
+<div class="col-span-12 lg:col-span-3 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Threat Indicators Overview</h3>
+<p class="text-[10px] text-on-surface-variant">Summary statistics and risk indicators</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<p class="text-xs mt-3"><span class="text-primary font-bold">670</span> detected threat events</p>
+<div class="w-full h-4 mt-2 rounded flex overflow-hidden">
+<div class="h-full bg-error" style="width: 17%"></div>
+<div class="h-full bg-tertiary" style="width: 14.2%"></div>
+<div class="h-full bg-[#fbbc04]" style="width: 63.1%"></div>
+<div class="h-full bg-slate-400" style="width: 5.7%"></div>
+</div>
+<div class="mt-4 space-y-2 text-[10px]">
+<div class="flex justify-between items-center border-b border-outline-variant/10 pb-1">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-error rounded-full"></span>
+<span class="font-medium">Critical</span>
+</div>
+<div class="flex gap-8">
+<span class="font-bold">2</span>
+<span class="text-on-surface-variant">7</span>
+</div>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/10 pb-1">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-tertiary rounded-full"></span>
+<span class="font-medium">High</span>
+</div>
+<div class="flex gap-8">
+<span class="font-bold">3</span>
+<span class="text-on-surface-variant">3</span>
+</div>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/10 pb-1">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-[#fbbc04] rounded-full"></span>
+<span class="font-medium">Medium</span>
+</div>
+<div class="flex gap-8">
+<span class="font-bold">1</span>
+<span class="text-on-surface-variant">1</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-3 bg-slate-400 rounded-full"></span>
+<span class="font-medium">Low</span>
+</div>
+<div class="flex gap-8">
+<span class="font-bold">1</span>
+<span class="text-on-surface-variant">1</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Critical Risk Profiles -->
+<div class="col-span-12 lg:col-span-3 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Critical Risk Profiles</h3>
+<p class="text-[10px] text-on-surface-variant">Behavioral trends/summary stats</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="space-y-3 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-lg">speed</span>
+</div>
+<div>
+<p class="text-sm font-black">3</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Users with Critical Risk Score</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-lg">layers</span>
+</div>
+<div>
+<p class="text-sm font-black text-error">+2</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Net change: +2 (since 30 days ago)</p>
+</div>
+</div>
+</div>
+<div class="h-16 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,40 L10,38 L20,35 L30,25 L40,28 L50,32 L60,30 L70,10 L80,12 L90,8 L100,5 L100,40 Z" fill="#ba1a1a1a" stroke="#ba1a1a" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- High-Risk User Behavior -->
+<div class="col-span-12 lg:col-span-3 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-sm text-on-surface">High-Risk User Behavior</h3>
+<p class="text-[10px] text-on-surface-variant">Behavioral trends/summary stats</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="space-y-3 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg">track_changes</span>
+</div>
+<div>
+<p class="text-sm font-black">95</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">anomalous acts detected</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg">category</span>
+</div>
+<div>
+<p class="text-sm font-black text-tertiary">+3</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Net change: +3 (since 30 days ago)</p>
+</div>
+</div>
+</div>
+<div class="h-16 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,40 L20,40 L40,30 L60,32 L80,15 L100,10 L100,40 Z" fill="#b9122b1a" stroke="#b9122b" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- Anomalous Data Access -->
+<div class="col-span-12 lg:col-span-3 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Anomalous Data Access</h3>
+<p class="text-[10px] text-on-surface-variant">Summary pattern</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="space-y-3 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg">language</span>
+</div>
+<div>
+<p class="text-sm font-black">600</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">instances of anomalous file access</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg">dataset</span>
+</div>
+<div>
+<p class="text-sm font-black text-primary">+10</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Net change: +10 (since 30 days ago)</p>
+</div>
+</div>
+</div>
+<div class="h-16 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,35 L20,30 L40,32 L60,30 L80,28 L100,10 L100,40 Z" fill="#2962831a" stroke="#296283" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Bottom Row -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Top At-Risk Users Table -->
+<div class="col-span-12 lg:col-span-5 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Top At-Risk Users</h3>
+<p class="text-[10px] text-on-surface-variant">Actionable insights, summary statistics</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-[10px] font-bold text-on-surface uppercase border-b border-outline-variant/30">
+<th class="pb-3 pr-2">User ID (Anonymized)</th>
+<th class="pb-3 pr-2">Risk Score</th>
+<th class="pb-3 pr-2">Primary Risk Indicator</th>
+<th class="pb-3">Anonymization Status</th>
+</tr>
+</thead>
+<tbody class="text-[11px]">
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-medium text-on-surface-variant">UID_1234_A</td>
+<td class="py-3"><span class="bg-error/10 text-error px-2 py-0.5 rounded font-bold">92</span></td>
+<td class="py-3 text-on-surface-variant">Data Exfiltration</td>
+<td class="py-3 text-on-surface-variant">Pseudonymized</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-medium text-on-surface-variant">UID_1234_B</td>
+<td class="py-3"><span class="bg-error/10 text-error px-2 py-0.5 rounded font-bold">93</span></td>
+<td class="py-3 text-on-surface-variant">Login Anomaly</td>
+<td class="py-3 text-on-surface-variant">Hashed</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-medium text-on-surface-variant">UID_1234_C</td>
+<td class="py-3"><span class="bg-tertiary/10 text-tertiary px-2 py-0.5 rounded font-bold">75</span></td>
+<td class="py-3 text-on-surface-variant">Later Movement</td>
+<td class="py-3 text-on-surface-variant">Hashed</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-medium text-on-surface-variant">UID_1234_A</td>
+<td class="py-3"><span class="bg-tertiary/10 text-tertiary px-2 py-0.5 rounded font-bold">65</span></td>
+<td class="py-3 text-on-surface-variant">Later Movement</td>
+<td class="py-3 text-on-surface-variant">Pseudonymized</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-3 font-medium text-on-surface-variant">UID_1238_B</td>
+<td class="py-3"><span class="bg-tertiary/10 text-tertiary px-2 py-0.5 rounded font-bold">65</span></td>
+<td class="py-3 text-on-surface-variant">Privilege Escalation</td>
+<td class="py-3 text-on-surface-variant">Pseudonymized</td>
+</tr>
+<tr>
+<td class="py-3 font-medium text-on-surface-variant">UID_5678_B</td>
+<td class="py-3"><span class="bg-slate-100 text-on-surface-variant px-2 py-0.5 rounded font-bold">40</span></td>
+<td class="py-3 text-on-surface-variant">Privilege Escalation</td>
+<td class="py-3 text-on-surface-variant">Pseudonymized</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Global User Behavior Trends -->
+<div class="col-span-12 lg:col-span-4 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Global User Behavior Trends (Weekly)</h3>
+<p class="text-[10px] text-on-surface-variant">Dataset analysis</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="relative h-48 w-full">
+<div class="absolute left-0 h-full flex flex-col justify-between text-[8px] text-on-surface-variant font-bold pr-2">
+<span>66</span>
+<span>40</span>
+<span>20</span>
+<span>0</span>
+</div>
+<div class="ml-6 h-full flex flex-col">
+<div class="flex-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 150">
+<!-- Multi-layered area chart -->
+<path d="M0,150 L50,140 L100,145 L150,130 L200,140 L250,135 L300,120 L350,130 L400,125 L400,150 L0,150 Z" fill="#296283"></path>
+<path d="M0,140 L50,130 L100,120 L150,110 L200,125 L250,115 L300,100 L350,115 L400,110 L400,150 L0,150 Z" fill="#fbbc04" opacity="0.6"></path>
+<path d="M0,120 L50,110 L100,90 L150,85 L200,100 L250,80 L300,95 L350,85 L400,75 L400,150 L0,150 Z" fill="#e84435" opacity="0.6"></path>
+</svg>
+</div>
+<div class="flex justify-between text-[8px] text-on-surface-variant font-bold mt-2 uppercase">
+<span>Feb 10</span>
+<span>Feb 24</span>
+<span>Mar 3</span>
+<span>Mar 9</span>
+<span>Mar 12</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-2 mt-4 text-[9px] font-bold text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Anomalous Logins</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Data Exfiltration like Patterns</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#fbbc04]"></span>
+<span>Lateral Movement like Behavior</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>Privilege Escalation like Acts</span>
+</div>
+</div>
+</div>
+<!-- Threat Events Donut -->
+<div class="col-span-12 lg:col-span-3 bg-white sentinel-shadow rounded-xl p-5 border border-outline-variant/30 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-bold text-sm text-on-surface">Threat Events by Behavior Type</h3>
+<p class="text-[10px] text-on-surface-variant">Actionable insights</p>
+</div>
+<button class="text-outline"><span class="material-symbols-outlined text-lg">menu</span></button>
+</div>
+<div class="relative flex-1 flex flex-col items-center">
+<div class="relative w-40 h-40">
+<!-- Custom CSS Donut -->
+<div class="absolute inset-0 rounded-full border-[20px] border-slate-100"></div>
+<div class="absolute inset-0 rounded-full border-[20px] border-[#296283] border-l-transparent border-b-transparent border-r-transparent transform -rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[20px] border-[#fbbc04] border-t-transparent border-b-transparent border-r-transparent transform rotate-180"></div>
+<div class="absolute inset-0 rounded-full border-[20px] border-[#a4c639] border-t-transparent border-b-transparent border-l-transparent transform rotate-[135deg]"></div>
+<div class="absolute inset-0 rounded-full border-[20px] border-[#4285f4] border-t-transparent border-l-transparent border-r-transparent transform rotate-180"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-xl font-black">600</span>
+</div>
+</div>
+<div class="w-full mt-6 space-y-1 text-[9px] font-bold text-on-surface-variant">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#1e4620]"></span>
+<span>Login Anomalies</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#4a7c59]"></span>
+<span>File Access Anomaly</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#76a27e]"></span>
+<span>Email Exfiltration</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>Lateral Movement</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>Policy Violations</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#fbbc04]"></span>
+<span>User Behavior Sequence Anomaly</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

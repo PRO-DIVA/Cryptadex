@@ -1,0 +1,166 @@
+ PS3: AI-Powered Insider Threat Detection
+                 System
+
+
+
+Problem Statement
+Insider threats represent one of the most complex and damaging cybersecurity challenges
+faced by modern organizations. Unlike external attacks, insider threats originate from
+individuals within the organization — employees, contractors, or partners — who may
+intentionally or unintentionally expose sensitive information. Such incidents can include
+unauthorized data access, confidential file transfers, suspicious email communication, or
+system misuse.
+    Participants are required to design and develop an AI-based system capable of identi-
+fying insider threats by analyzing structured activity data. The solution should include:
+
+   • A detection engine that identifies anomalous or high-risk behavior
+
+   • A dashboard that presents actionable insights and alerts
+
+   • A data processing module that transforms raw logs into structured datasets suitable
+     for analysis
+
+    The goal is to build an end-to-end solution that strengthens internal security moni-
+toring and supports proactive risk mitigation.
+
+
+Objectives
+1. Detection Engine
+Develop a reliable detection mechanism that analyzes structured organizational activity
+data to identify insider threats. The model should prioritize high precision and recall
+while reducing false positives and false negatives.
+
+2. Visualization and Insight Platform
+Create a lightweight, intuitive dashboard that displays:
+   • Real-time alerts
+
+   • Behavioral trends
+
+   • Summary statistics and risk indicators
+The interface should enable security teams to interpret and act upon insights efficiently.
+
+                                            1
+3. Dataset Processing Module
+Design a pipeline that converts raw logs (e.g., network traffic, system logs, application
+logs, or email logs) into structured datasets. The processed data should be directly
+compatible with the detection engine.
+
+
+Evaluation Criteria
+1. Model Performance
+   • Precision, recall, F1-score, and accuracy
+
+   • Ability to balance detection sensitivity with false alarm reduction
+
+2. Dashboard Quality
+   • Clarity and usability
+
+   • Interactivity and practical relevance
+
+3. Data Engineering Capability
+   • Effectiveness in parsing and structuring diverse log types
+
+   • Scalability and efficiency
+
+4. System Scalability
+Ability to handle large volumes of organizational data.
+
+5. Privacy and Security Measures
+   • Implementation of anonymization techniques
+
+   • Secure data storage and transmission mechanisms
+
+
+Implementation Guidelines
+Core Requirements
+   • Core logic and algorithms must be implemented independently.
+
+   • Direct copying of external solutions is not permitted.
+
+   • Teams must clearly document architectural decisions, models used, and custom
+     implementations.
+
+
+
+
+                                             2
+Dataset Suggestions
+Teams must use publicly available Carnegie Mellon University Insider Threat Dataset.
+Preprocessing tools such as Pandas, Spark, or Dask may be used for data cleaning and
+transformation. Features can include timestamps, user behavior sequences, login pat-
+terns, and access histories.
+
+Advanced Modeling Approaches (Optional)
+Detection Techniques:
+   • Autoencoders or LSTMs for sequential anomaly detection
+   • Graph Neural Networks (GNNs) to model user-activity relationships
+   • Unsupervised clustering methods such as DBSCAN or HDBSCAN
+   • Ensemble models such as Random Forests or Gradient Boosting for interpretable
+     classification
+   Visualization:
+   • Streamlit, Dash, or Flask-based dashboards
+   • Plotly, Seaborn, or D3.js for dynamic visualizations
+   Data Pipeline:
+   • Log ingestion using Kafka or similar streaming tools
+   • Workflow orchestration using Airflow, Prefect, or Luigi
+   • NLP models for analyzing textual logs or email content
+
+Privacy Measures
+   • Hashing or pseudonymization of sensitive fields
+   • Encryption (e.g., AES-256) for stored and transmitted data
+
+Deployment (Optional but Encouraged)
+   • Cloud deployment on AWS, GCP, or Azure
+   • Containerization using Docker
+
+
+Deliverables
+1. Functional Prototype
+   • Detection Engine
+   • Dashboard Interface
+   • Dataset Processing Module (if implemented)
+All components must be integrated into a unified system.
+
+                                           3
+2. Deployment (Optional but Preferred)
+   • Hosted version of the solution
+
+   • Access credentials or URL for evaluation
+
+3. Source Code
+   • Clean, modular, well-documented code
+
+   • Repository link or compressed archive submission
+
+4. Documentation
+   • Technical architecture overview
+
+   • Setup instructions
+
+   • Privacy implementation details
+
+5. Demo Video (5–10 minutes)
+   • Demonstration of threat detection
+
+   • Dashboard walkthrough
+
+   • Dataset processing overview
+
+   • Cloud deployment (if applicable)
+
+6. Performance Report
+   • Evaluation metrics
+
+   • Brief analysis of model performance
+
+
+Submission Format
+Submissions must be made via official college email. Participants should provide either
+a compressed file or repository link containing source code, documentation, dataset (if
+applicable), and demo video link.
+
+
+
+
+                                           4
+

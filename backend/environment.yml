@@ -1,0 +1,11 @@
+name: cryptadex-backend
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pandas
+  - scikit-learn
+  - fastapi
+  - uvicorn
+  - pydantic
