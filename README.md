@@ -1,3 +1,4 @@
+
 # 🛡️ CryptaDex — AI-Powered Insider Threat Detection System
 
 **Writeup of the project:** [CryptaDex Writeup](https://docs.google.com/document/d/1NyLFu0rqze3I4Y8iQTYbbqaNgWkAzMqHS8Zf7aNfXvY/edit?usp=sharing)
@@ -11,15 +12,10 @@ CryptaDex is a full-stack, end-to-end security intelligence platform that detect
 ---
 
 ## MVP
-<img width="1920" height="919" alt="image" src="https://github.com/user-attachments/assets/79d81c28-96eb-4afc-9b14-2b08da3f3011" />
 
-<img width="1919" height="917" alt="image" src="https://github.com/user-attachments/assets/9c13007d-b140-4828-af11-fb3d1b0f9c17" />
+![image](https://www.image2url.com/r2/default/images/1786109210495-e50b6200-cb35-4e25-905c-91e86b9a2018.jpeg)
 
-<img width="1920" height="916" alt="image" src="https://github.com/user-attachments/assets/7080f67a-de0f-40b0-89a2-cdab25fa79c0" />
-
-<img width="1920" height="920" alt="image" src="https://github.com/user-attachments/assets/53581396-778b-4635-b18f-77f32d79e818" />
-
-<img width="1920" height="919" alt="image" src="https://github.com/user-attachments/assets/36732317-17b1-4407-a3ac-15cac2e81b51" />
+![image](https://www.image2url.com/r2/default/images/1786109275052-8808a708-b632-4ffb-9339-6ad0815ab212.jpeg)
 
 
 ## 📚 Table of Contents
