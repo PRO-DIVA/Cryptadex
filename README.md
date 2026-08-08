@@ -5,8 +5,6 @@
 
 **Video Link of the project:** [CryptaDex Demo Video](https://drive.google.com/file/d/1jjp-WQarc2YaZKgpM0Ft7jE2PmEHmHam/view?usp=sharing)
 
-> **PS3 Submission** | AI-Powered Insider Threat Detection Challenge
-
 CryptaDex is a full-stack, end-to-end security intelligence platform that detects insider threats using **unsupervised machine learning (Isolation Forest)** combined with **temporal behavioral analysis**. It transforms raw organizational activity logs into actionable security intelligence through a modern, real-time dashboard.
 
 ---
