@@ -187,7 +187,6 @@ checkpointat2-main/
 ├── user_behavior_analysis_desktop/ # Static UI mockup snapshot
 │
 ├── SAMPLE_INPUT.csv                # Sample data file for testing scans
-├── PROMPT.txt                      # Original challenge problem statement
 └── README.md                       # This file
 ```
 
